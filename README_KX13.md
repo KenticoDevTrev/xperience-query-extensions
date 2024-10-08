@@ -6,23 +6,23 @@
 
 [![NuGet Package](https://img.shields.io/nuget/v/XperienceCommunity.QueryExtensions.svg)](https://www.nuget.org/packages/XperienceCommunity.QueryExtensions)
 
-This package provides a set of extension methods for Xperience by Kentico `ContentTypeQueryParameters`, `ContentItemQueryBuilder`, `WhereParameters`, `ObjectQuery`, and `ConnectionHelper`'s returned `IDataReader` / `DbDataReader` [data access APIs](https://docs.kentico.com/developers-and-admins/api).
+This package provides a set of extension methods for Kentico Xperience 13.0 `DocumentQuery`, `MultiDocumentQuery`, `ObjectQuery`, and `IPageRetriever` [data access APIs](https://docs.xperience.io/13api/content-management/pages).
 
 ## Dependencies
 
-This package is compatible with ASP.NET Core 8 applications or libraries integrated with Xperience by Kentico Versions 29.5.2 +.
+This package is compatible with ASP.NET Core 3.1 -> ASP.NET Core 5 applications or libraries integrated with Kentico Xperience 13.0.
 
 ## How to Use?
 
 1. Install the NuGet package in your ASP.NET Core project (or class library)
 
    ```bash
-   dotnet add package XperienceCommunity.DevTools.QueryExtensions
+   dotnet add package XperienceCommunity.QueryExtensions
    ```
 
 1. Add the correct `using` to have the extensions appear in intellisense
 
-   `using XperienceCommunity.QueryExtensions.ContentItems;`
+   `using XperienceCommunity.QueryExtensions.Documents;`
 
    `using XperienceCommunity.QueryExtensions.Objects;`
 
@@ -30,9 +30,153 @@ This package is compatible with ASP.NET Core 8 applications or libraries integra
 
    > The extension methods are all in explicit namespaces to prevent conflicts with extensions that Xperience might add in the future or extensions that the developer might have already created.
    >
-   > You can apply these globally with [C# implicit usings](https://docs.microsoft.com/en-us/dotnet/core/project-sdk/overview#implicit-using-directives)
+   > If you are using C# 10, you can apply these globally with [C# 10 implicit usings](https://docs.microsoft.com/en-us/dotnet/core/project-sdk/overview#implicit-using-directives)
 
 ## Extension Methods
+
+### DocumentQuery
+
+#### Prerequisites
+
+```csharp
+using XperienceCommunity.QueryExtensions.Documents;
+```
+
+#### Examples
+
+> These work for both `DocumentQuery<T>` and `MultiDocumentQuery`
+
+```csharp
+public void QueryDocument(Guid nodeGuid)
+{
+    var query = DocumentHelper.GetDocuments()
+        .WhereNodeGUIDEquals(nodeGuid);
+}
+```
+
+```csharp
+public void QueryDocument(int nodeID)
+{
+    var query = DocumentHelper.GetDocuments()
+        .WhereNodeIDEquals(nodeID);
+}
+```
+
+```csharp
+public void QueryDocument(int documentID)
+{
+    var query = DocumentHelper.GetDocuments()
+        .WhereDocumentIDEquals(documentID);
+}
+```
+
+```csharp
+var query = DocumentHelper.GetDocuments()
+    .OrderByNodeOrder();
+```
+
+```csharp
+var query = DocumentHelper.GetDocuments()
+    .Tap(q => 
+    {
+        // access the query 'q'
+    });
+```
+
+```csharp
+bool condition = ...
+
+var query = DocumentHelper.GetDocuments()
+    .If(condition, q => 
+    {
+        // when condition is true
+    });
+```
+
+```csharp
+bool condition = ...
+
+var query = DocumentHelper.GetDocuments()
+    .If(condition, 
+    q => 
+    {
+        // when condition is true
+    }, 
+    q =>
+    {
+        // when condition is false
+    });
+```
+
+```csharp
+var query = DocumentHelper.GetDocuments()
+    .OrderByDescending(nameof(TreeNode.NodeID))
+    .TopN(1)
+    .DebugQuery();
+
+/*
+--- BEGIN [path\to\your\app\Program.cs] QUERY ---
+
+
+DECLARE @DocumentCulture nvarchar(max) = N'en-US';
+
+SELECT TOP 1 *
+FROM View_CMS_Tree_Joined AS V WITH (NOLOCK, NOEXPAND) LEFT OUTER JOIN COM_SKU AS S WITH (NOLOCK) ON [V].[NodeSKUID] = [S].[SKUID]
+WHERE [DocumentCulture] = @DocumentCulture
+ORDER BY NodeID DESC
+
+
+--- END [path\to\your\app\Program.cs] QUERY ---
+*/
+```
+
+```csharp
+var query = DocumentHelper.GetDocuments()
+    .OrderByDescending(nameof(TreeNode.NodeID))
+    .TopN(1)
+    .DebugQuery("Newest Document");
+
+/*
+--- BEGIN [Newest Document] QUERY ---
+
+
+DECLARE @DocumentCulture nvarchar(max) = N'en-US';
+
+SELECT TOP 1 *
+FROM View_CMS_Tree_Joined AS V WITH (NOLOCK, NOEXPAND) LEFT OUTER JOIN COM_SKU AS S WITH (NOLOCK) ON [V].[NodeSKUID] = [S].[SKUID]
+WHERE [DocumentCulture] = @DocumentCulture
+ORDER BY NodeID DESC
+
+
+--- END [Newest Document] QUERY ---
+*/
+```
+
+```csharp
+var query = DocumentHelper.GetDocuments()
+    .OrderByDescending(nameof(TreeNode.NodeID))
+    .TopN(1)
+    .TapQueryText(fullQueryText =>
+    {
+        Debug.WriteLine(fullQueryText);
+    })
+    .WhereEquals(...)
+```
+
+```csharp
+public void QueryDatabase(ILogger logger)
+{
+    var query = DocumentHelper.GetDocuments()
+        .OrderByDescending(nameof(TreeNode.NodeID))
+        .TopN(1)
+        .LogQuery(logger, "Logged Query");
+}
+```
+
+```csharp
+var query = DocumentHelper.GetDocuments()
+    .Where(w => w.WhereInPath("path1", "path2"));
+```
 
 ### ObjectQuery
 
@@ -183,6 +327,65 @@ foreach (var row in dataset.Tables[0].Rows)
 }
 ```
 
+### Collections
+
+#### Requirements
+
+```csharp
+using XperienceCommunity.QueryExtensions.Collections;
+```
+
+#### Examples
+
+```csharp
+TreeNode? page = await retriever
+    .RetrieveAsync<TreeNode>(q => q.TopN(1), cancellationToken: token)
+    .FirstOrDefaultAsync();
+```
+
+```csharp
+IList<TreeNode> pages = await retriever
+    .RetrieveAsync<TreeNode>(cancellationToken: token)
+    .ToListAsync();
+```
+
+```csharp
+IList<TreeNode> pages = await retriever
+    .RetrieveAsync<TreeNode>(cancellationToken: token)
+    .ToArrayAsync();
+```
+
+### PageRetriever
+
+#### Requirements
+
+```csharp
+using Kentico.Content.Web.Mvc;
+```
+
+#### Examples
+
+```csharp
+void GetPages(int pageIndex, int pageSize)
+{
+    var result = await retriever.RetrievePagedAsync<TreeNode>(
+        pageIndex,
+        pageSize,
+        q => q.OrderByNodeOrder(),
+        cancellationToken: token);
+
+    int total = result.TotalRecords;
+    List<TreeNode> pages = result.Items;
+
+    // or
+
+    var (totalRecords, pages) = await retriever.RetrievePagedAsync<TreeNode>(
+        pageIndex,
+        pageSize,
+        q => q.OrderByNodeOrder(),
+        cancellationToken: token);
+}
+```
 
 ### XperienceCommunityConnectionHelper
 
