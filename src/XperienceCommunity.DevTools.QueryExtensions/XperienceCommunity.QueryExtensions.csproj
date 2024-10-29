@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Description>This package provides helpful extension methods for the various Xperience by Kentico Content Item/Object query, and System.Collections.Generic APIs.</Description>
+		<PackageId>XperienceCommunity.DevTools.QueryExtensions</PackageId>
+		<Title>XperienceCommunity.DevTools.QueryExtensions</Title>
+		<Company>Kentico Community</Company>
+		<Product>XperienceCommunity.DevTools.QueryExtensions</Product>
+		<PackageProjectUrl>https://github.com/KenticoDevTrev/xperience-query-extensions</PackageProjectUrl>
+		<PackageIcon>kentico-icon-128x128.png</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/KenticoDevTrev/xperience-query-extensions</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Kentico.Xperience.Core" Version="29.5.2" />
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<AssemblyAttribute Include="CMS.AssemblyDiscoverableAttribute">
+		</AssemblyAttribute>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="..\..\..\kentico-icon-128x128.png">
+	    <Pack>True</Pack>
+	    <PackagePath></PackagePath>
+	  </None>
+	  <None Include="..\..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath></PackagePath>
+	  </None>
+	</ItemGroup>
+
+</Project>
