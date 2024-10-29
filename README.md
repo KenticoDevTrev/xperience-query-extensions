@@ -1,10 +1,3 @@
-# Xperience Query Extensions
-
-[![GitHub Actions CI: Build](https://github.com/wiredviews/xperience-query-extensions/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/wiredviews/xperience-query-extensions/actions/workflows/ci.yml)
-
-[![Publish Packages to NuGet](https://github.com/wiredviews/xperience-query-extensions/actions/workflows/publish.yml/badge.svg?branch=main)](https://github.com/wiredviews/xperience-query-extensions/actions/workflows/publish.yml)
-
-[![NuGet Package](https://img.shields.io/nuget/v/XperienceCommunity.QueryExtensions.svg)](https://www.nuget.org/packages/XperienceCommunity.QueryExtensions)
 
 This package provides a set of extension methods for Xperience by Kentico `ContentTypeQueryParameters`, `ContentItemQueryBuilder`, `WhereParameters`, `ObjectQuery`, and `ConnectionHelper`'s returned `IDataReader` / `DbDataReader` [data access APIs](https://docs.kentico.com/developers-and-admins/api).
 
@@ -212,10 +205,3 @@ var dataSet = await XperienceCommunityConnectionHelper.ExecuteQueryAsync(queryTe
 ### .NET
 
 - [Nullable reference types (C# reference)](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-reference-types)
-
-### Kentico Xperience
-
-- [Kentico Xperience 13 Beta 3 - New Data Access APIs](https://dev.to/seangwright/kentico-xperience-13-beta-3-new-data-access-apis-1oha)
-- [Pages API Examples](https://docs.xperience.io/13api/content-management/pages)
-- [Retrieving pages in custom scenarios](https://docs.xperience.io/custom-development/working-with-pages-in-the-api#WorkingwithpagesintheAPI-Retrievingpagesincustomscenarios)
-- [Improvements under the hood – Document and ObjectQuery enumeration without DataSets](https://devnet.kentico.com/articles/improvements-under-the-hood-document-and-objectquery-enumeration-without-datasets)
