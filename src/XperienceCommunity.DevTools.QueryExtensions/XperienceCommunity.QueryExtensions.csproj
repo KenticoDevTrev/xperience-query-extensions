@@ -12,6 +12,8 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/KenticoDevTrev/xperience-query-extensions</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
+		<PackageReleaseNotes />
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	</PropertyGroup>
 
 	<ItemGroup>
