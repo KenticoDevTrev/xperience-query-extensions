@@ -5,6 +5,13 @@ This package provides a set of extension methods for Xperience by Kentico `Conte
 
 This package is compatible with ASP.NET Core 8 applications or libraries integrated with Xperience by Kentico Versions 29.5.2 +.
 
+## Library Version Matrix
+
+| Xperience Version | Library Version |
+| ----------------- | --------------- |
+| >= 30.0.0         | 3.x             |
+|    29.7.*         | 2.1             |
+
 ## How to Use?
 
 1. Install the NuGet package in your ASP.NET Core project (or class library)
