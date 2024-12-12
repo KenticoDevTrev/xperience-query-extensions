@@ -12,12 +12,13 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/KenticoDevTrev/xperience-query-extensions</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<PackageReleaseNotes />
+    <PackageReleaseNotes ></PackageReleaseNotes>
+    <Version>2.0.0</Version>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Kentico.Xperience.Core" Version="29.7.0" />
+		<PackageReference Include="Kentico.Xperience.Core" Version="30.0.0" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
