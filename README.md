@@ -1,4 +1,3 @@
-
 This package provides a set of extension methods for Xperience by Kentico `ContentTypeQueryParameters`, `ContentItemQueryBuilder`, `WhereParameters`, `ObjectQuery`, and `ConnectionHelper`'s returned `IDataReader` / `DbDataReader` [data access APIs](https://docs.kentico.com/developers-and-admins/api).
 
 ## Dependencies
