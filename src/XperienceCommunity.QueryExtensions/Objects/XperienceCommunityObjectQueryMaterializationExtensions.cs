@@ -19,7 +19,7 @@ namespace XperienceCommunity.QueryExtensions.Objects
         /// <returns>Returns a task returning either the data set with one table.</returns>
         public static async Task<DataSet> ExecuteAsync<TObject>(this ObjectQuery<TObject> baseQuery, CommandBehavior commandBehavior = CommandBehavior.Default, bool newConnection = false, CancellationToken? cancellationToken = null) where TObject : BaseInfo, new()
         {
-            var reader = await baseQuery.ExecuteReaderAsync(commandBehavior, newConnection, cancellationToken);
+            using var reader = await baseQuery.ExecuteReaderAsync(commandBehavior, newConnection, cancellationToken);
             return DataReaderToDataSet(reader);
         }
 
@@ -33,7 +33,7 @@ namespace XperienceCommunity.QueryExtensions.Objects
         /// <returns>Returns a task returning either the data set with one table.</returns>
         public static async Task<DataSet> ExecuteAsync(this ObjectQuery baseQuery, CommandBehavior commandBehavior = CommandBehavior.Default, bool newConnection = false, CancellationToken? cancellationToken = null)
         {
-            var reader = await baseQuery.ExecuteReaderAsync(commandBehavior, newConnection, cancellationToken);
+            using var reader = await baseQuery.ExecuteReaderAsync(commandBehavior, newConnection, cancellationToken);
             return DataReaderToDataSet(reader);
         }
 

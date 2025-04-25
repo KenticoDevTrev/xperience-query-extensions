@@ -20,7 +20,7 @@ namespace CMS.DataEngine
         /// <returns></returns>
         public static async Task<DataSet> ExecuteAsync(this DocumentQuery baseQuery)
         {
-            var results = await baseQuery.ExecuteReaderAsync();
+            using var results = await baseQuery.ExecuteReaderAsync();
             return DataReaderToDataSet(results);
         }
 
@@ -32,7 +32,7 @@ namespace CMS.DataEngine
         /// <returns></returns>
         public static async Task<DataSet> ExecuteAsync<TDocument>(this DocumentQuery<TDocument> baseQuery) where TDocument : TreeNode, new()
         {
-            var results = await baseQuery.ExecuteReaderAsync();
+            using var results = await baseQuery.ExecuteReaderAsync();
             return DataReaderToDataSet(results);
         }
 
@@ -43,7 +43,7 @@ namespace CMS.DataEngine
         /// <returns></returns>
         public static async Task<DataSet> ExecuteAsync(this MultiDocumentQuery baseQuery)
         {
-            var results = await baseQuery.ExecuteReaderAsync();
+            using var results = await baseQuery.ExecuteReaderAsync();
             return DataReaderToDataSet(results);
         }
 
@@ -99,7 +99,7 @@ namespace CMS.DataEngine
 
             string? queryText = (queryMacros ?? new QueryMacros()).ResolveMacros(query.QueryText);
 
-            var reader = await ConnectionHelper.ExecuteReaderAsync(queryText, parameters, query.QueryType, CommandBehavior.Default, token);
+            using var reader = await ConnectionHelper.ExecuteReaderAsync(queryText, parameters, query.QueryType, CommandBehavior.Default, token);
             return DbDataReaderToDataSet(reader);
         }
 
@@ -113,7 +113,7 @@ namespace CMS.DataEngine
         /// <returns>A dataset with query results</returns>
         public static async Task<DataSet> ExecuteQueryAsync(string queryText, QueryDataParameters parameters, QueryTypeEnum queryType, CancellationToken token = default)
         {
-            var reader = await ConnectionHelper.ExecuteReaderAsync(queryText, parameters, queryType, CommandBehavior.Default, token);
+            using var reader = await ConnectionHelper.ExecuteReaderAsync(queryText, parameters, queryType, CommandBehavior.Default, token);
             return DbDataReaderToDataSet(reader);
         }
 
