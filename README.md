@@ -8,7 +8,8 @@ This package is compatible with ASP.NET Core 8 applications or libraries integra
 
 | Xperience Version | Library Version |
 | ----------------- | --------------- |
-| >= 30.0.0         | 3.x             |
+| >= 31.0.0         | 4.x             |
+|    30.0.0-30.12.3 | 3.x             |
 |    29.7.*         | 2.1             |
 
 ## How to Use?
