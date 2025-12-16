@@ -1,9 +1,16 @@
-
 This package provides a set of extension methods for Xperience by Kentico `ContentTypeQueryParameters`, `ContentItemQueryBuilder`, `WhereParameters`, `ObjectQuery`, and `ConnectionHelper`'s returned `IDataReader` / `DbDataReader` [data access APIs](https://docs.kentico.com/developers-and-admins/api).
 
 ## Dependencies
 
-This package is compatible with ASP.NET Core 8 applications or libraries integrated with Xperience by Kentico Versions 29.5.2 +.
+This package is compatible with ASP.NET Core 8 applications or libraries integrated with Xperience by Kentico Versions 31.0.0 +.
+
+## Library Version Matrix
+
+| Xperience Version | Library Version |
+| ----------------- | --------------- |
+| >= 31.0.0         | 4.x             |
+|    30.0.0-30.12.3 | 3.x             |
+|    29.7.*         | 2.1             |
 
 ## How to Use?
 
