@@ -2,7 +2,7 @@ This package provides a set of extension methods for Xperience by Kentico `Conte
 
 ## Dependencies
 
-This package is compatible with ASP.NET Core 8 applications or libraries integrated with Xperience by Kentico Versions 29.5.2 +.
+This package is compatible with ASP.NET Core 8 applications or libraries integrated with Xperience by Kentico Versions 31.0.0 +.
 
 ## Library Version Matrix
 
